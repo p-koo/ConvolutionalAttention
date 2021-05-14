@@ -120,11 +120,11 @@ if model_name == 'CNN_ATT':
 
 elif model_name == 'CNN_LSTM':
     model = models.CNN_LSTM(in_shape=(L,A), num_out=num_labels, activation=activation, pool_size=pool_size,
-                           lstm_units=128, dense_units=1024)
+                           lstm_units=256, dense_units=1024)
 
 elif model_name == 'CNN_LSTM_ATT':
     model = models.CNN_LSTM_ATT(in_shape=(L,A), num_out=num_labels, activation=activation, pool_size=pool_size,
-                                lstm_units=128, dense_units=1024, heads=16, key_size=128)
+                                lstm_units=256, dense_units=1024, heads=16, key_size=128)
 
 # compile model model
 auroc = tf.keras.metrics.AUC(curve='ROC', name='auroc')
@@ -134,7 +134,7 @@ model.compile(tf.keras.optimizers.Adam(0.001), loss='binary_crossentropy', metri
 # fit model
 lr_decay = tf.keras.callbacks.ReduceLROnPlateau(monitor='val_aupr', factor=0.2, patient=5, verbose=1, min_lr=1e-7, mode='max')
 early_stop = tf.keras.callbacks.EarlyStopping(monitor='val_aupr', patience=10, verbose=1, mode='max')
-history = model.fit(x_train, y_train, epochs=epochs, validation_data=(x_valid, y_valid), callbacks=[lr_decay, early_stop], verbose=1)
+history = model.fit(x_train, y_train, epochs=100, batch_size=100, validation_data=(x_valid, y_valid), callbacks=[lr_decay, early_stop], verbose=1)
 
 # save model params
 model_dir = os.path.join(results_path, model_name+'_weights_'+str(trial)+'.h5')
