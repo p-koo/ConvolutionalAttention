@@ -104,10 +104,10 @@ if not os.path.exists(results_path):
 # load data
 data_path = '../../data'
 if dataset == 'basset':
-    file_path = os.path.join(data_path, 'basset_dataset.h5')
+    filepath = os.path.join(data_path, 'basset_dataset.h5')
     data = load_basset_data(filepath, reverse_compliment=False)
 elif dataset == 'deepsea':
-    file_path = os.path.join(data_path, 'deepsea_dataset.h5')
+    filepath = os.path.join(data_path, 'deepsea_dataset.h5')
     data = load_deepsea_data(filepath, reverse_compliment=False)
 x_train, y_train, x_valid, y_valid, x_test, y_test = data
 N, L, A = x_train.shape
