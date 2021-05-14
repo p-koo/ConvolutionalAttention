@@ -84,6 +84,7 @@ parser.add_argument("-d", type=str, help="dataset")
 parser.add_argument("-m", type=str, default=0.05, help="model_name")
 parser.add_argument("-p", type=int, default=20, help="pool_size")
 parser.add_argument("-a", type=str, default='relu', help="activation")
+parser.add_argument("-f", type=int, default=64, help="activation")
 parser.add_argument("-t", type=int, default=None, help="trial")
 args = parser.parse_args()
 
@@ -92,6 +93,7 @@ model_name = args.m
 pool_size = args.p
 activation = args.a
 trial = args.t
+num_filters = args.f
 
 # set paths
 results_path = '../results'
@@ -116,15 +118,15 @@ num_labels = y_train.shape[1]
 # build model
 if model_name == 'CNN_ATT':
     model = models.CNN_ATT(in_shape=(L,A), num_out=num_labels, activation=activation, pool_size=pool_size,
-                           dense_units=1024, heads=16, key_size=128)
+                           num_filters=num_filters, dense_units=1024, heads=16, key_size=128)
 
 elif model_name == 'CNN_LSTM':
     model = models.CNN_LSTM(in_shape=(L,A), num_out=num_labels, activation=activation, pool_size=pool_size,
-                           lstm_units=256, dense_units=1024)
+                            num_filters=num_filters, lstm_units=256, dense_units=1024)
 
 elif model_name == 'CNN_LSTM_ATT':
     model = models.CNN_LSTM_ATT(in_shape=(L,A), num_out=num_labels, activation=activation, pool_size=pool_size,
-                                lstm_units=256, dense_units=1024, heads=16, key_size=128)
+                                num_filters=num_filters, lstm_units=256, dense_units=1024, heads=16, key_size=128)
 
 # compile model model
 auroc = tf.keras.metrics.AUC(curve='ROC', name='auroc')
