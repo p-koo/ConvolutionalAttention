@@ -137,16 +137,16 @@ early_stop = tf.keras.callbacks.EarlyStopping(monitor='val_aupr', patience=10, v
 history = model.fit(x_train, y_train, epochs=epochs, validation_data=(x_valid, y_valid), callbacks=[lr_decay, early_stop], verbose=1)
 
 # save model params
-model_dir = os.path.join(results_path, model_name+'_weights.h5')
+model_dir = os.path.join(results_path, model_name+'_weights_'+str(trial)+'.h5')
 model.save_weights(model_dir)
 
-logs_dir = os.path.join(results_path, model_name+'_logs.pickle')
+logs_dir = os.path.join(results_path, model_name+'_logs_'+str(trial)+'.pickle')
 with open(logs_dir, 'wb') as handle:
     cPickle.dump(history.history, handle)
 
 # Extract ppms from filters
 ppms = utils.get_ppms(model, x_test)
-logs_dir = os.path.join(results_path, model_name+'_filters.txt')
+logs_dir = os.path.join(results_path, model_name+'_filters_'+str(trial)+'.txt')
 moana.meme_generate(ppms, output_file=motif_dir, prefix='filter')
 
 # Tomtom analysis
@@ -155,7 +155,7 @@ utils.tomtom(motif_dir, tomtom_dir)
 
 # motif analysis
 stats = utils.analysis(variant, motif_dir, tomtom_dir, model, x_test, y_test)
-stats_dir = os.path.join(results_path, model_name+'_stats.npy')
+stats_dir = os.path.join(results_path, model_name+'_stats_'+str(trial)+'.npy')
 np.save(stats_dir, stats, allow_pickle=True)
 
 

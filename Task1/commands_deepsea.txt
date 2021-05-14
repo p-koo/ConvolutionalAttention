@@ -1,0 +1,19 @@
+
+python invivo_pipeline.py -d deepsea -m CNN_ATT -a relu -p 4 -t 0
+python invivo_pipeline.py -d deepsea -m CNN_ATT -a exponential -p 4 -t 0
+python invivo_pipeline.py -d deepsea -m CNN_ATT -a relu -p 25 -t 0
+python invivo_pipeline.py -d deepsea -m CNN_ATT -a exponential -p 25 -t 0
+
+python invivo_pipeline.py -d deepsea -m CNN_LSTM -a relu -p 4 -t 0
+python invivo_pipeline.py -d deepsea -m CNN_LSTM -a exponential -p 4 -t 0
+python invivo_pipeline.py -d deepsea -m CNN_LSTM -a relu -p 25 -t 0
+python invivo_pipeline.py -d deepsea -m CNN_LSTM -a exponential -p 25 -t 0
+
+
+python invivo_pipeline.py -d deepsea -m CNN_LSTM_ATT -a relu -p 4 -t 0
+python invivo_pipeline.py -d deepsea -m CNN_LSTM_ATT -a exponential -p 4 -t 0
+python invivo_pipeline.py -d deepsea -m CNN_LSTM_ATT -a relu -p 25 -t 0
+python invivo_pipeline.py -d deepsea -m CNN_LSTM_ATT -a exponential -p 25 -t 0
+
+
+
