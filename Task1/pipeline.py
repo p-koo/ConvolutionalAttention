@@ -72,3 +72,5 @@ def execute_pipeline(baseline, category, variant, trial, model, epochs):
     # Analysis
     stats = utils.analysis(variant, motif_dir, tomtom_dir, model, x_test, y_test)
     np.save(stats_dir, stats, allow_pickle=True)
+
+    
